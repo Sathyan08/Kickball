@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kickball: <%= @team %></title>
+  </head>
+  <body>
+    <h2>Team: <%= @team %></h2>
+    <h4>The players on this team are:</h4>
+    <ul>
+      <% @team_players.each do |player| %>
+        <li><%= player[0]%> <%= player[1]%> <%= player[2]%></li>
+      <% end %>
+    </ul>
+</html>

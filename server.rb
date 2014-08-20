@@ -2,6 +2,8 @@ require 'sinatra'
 
 require 'csv'
 
+require 'sinatra/reloader'
+
 def get_all_players_on_a_team(team_name, data_total)
   players_on_team = []
 
@@ -40,6 +42,20 @@ def return_position_array(position, players_in_each_position)
       return position_array
     end
   end
+end
+
+def return_all_players_on_a_team(team)
+  players = []
+  CSV.foreach('lackp_starting_rosters.csv', headers:true) do |row|
+    if row["team"] == team
+      temp_player_array = []
+      temp_player_array << row["first_name"]
+      temp_player_array << row["last_name"]
+      temp_player_array << row["position"]
+      players << temp_player_array
+    end
+  end
+  players
 end
 
 data_total = []
@@ -90,33 +106,24 @@ end
 
 get '/' do
 
-  html = '''
-  <!DOCTYPE>
-  <html>
-    <head>
-      <title>Kickball</title>
-    </head>
-    <body>
-      <h3>The teams are:</h3>
-      <ul>
-      '''
-  teams.each do |team|
-    html += "<li>#{team}</li> "
-  end
+  @teams = teams
+  @positions = positions
+  erb :index
+end
 
-  html += '''
-      </ul>
-      <h3>The positions are:</h3>
-      <ul>
-    '''
+get '/team/:team' do
+  @team = params[:team]
+  @team_players = return_all_players_on_a_team(@team)
 
-  positions.each do |position|
-    html += "<li>#{position}</li>"
-  end
+  erb :teams
 
-  html += '''
-    </body>
-  </html>
-  '''
+end
+
+get '/position/:position' do
+  @position = params[:position]
+  @players_in_each_position = positions_hash[@position]
+
+  erb :positions
+
 
 end

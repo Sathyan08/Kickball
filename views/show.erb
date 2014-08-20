@@ -1,0 +1,14 @@
+<!DOCTYPE>
+<head>
+  <title><%= @selection %></title>
+</head>
+<body>
+  <% if @teams.include?(@selection)%>
+    <h3>The players on <%= @selection %> are:</h3>
+    <ul>
+      <% @team_hash[@selection].each do |player_hash| %>
+        <li><%= player_hash["first_name"] %><%= player_hash["last_name"] %>, <%= player_hash["position"] %></li>
+        <% end %>
+    </ul>
+  <% end %>
+</body>

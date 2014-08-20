@@ -5,6 +5,21 @@
   </head>
   <body>
     <h3>List of Teams</h3>
+    <ul>
+      <% @teams.each do |team| %>
+        <li>
+          <a href="team/<%= team %>"><%= team %><a>
+        </li>
+        <% end %>
+    </ul>
+
+    <h3>List of Positions</h3>
+    <ul>
+      <% @positions.each do |position| %>
+        <li>
+          <a href="position/<%= position%>"><%= position %></a>
+        </li>
+        <% end%>
+    </ul>
   </body>
-    <h3>Positions</h3>
 </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE = html>
+<html>
+<head>
+  <title>Kickball: <%= @position%></title>
+</head>
+<body>
+  <h2>Position: <%= @position%></h2>
+  <h4>The players who play this position are:</h4>
+  <ul>
+    <% @players_in_each_position.each do |player|%>
+    <li><%= player["first_name"] %> <%= player["last_name"]%> <%= player["team"]%></li>
+    <% end %>
+</body>
+
+</html>
